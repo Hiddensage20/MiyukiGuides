@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guía de Pasos Miyuki</title>
-    <!-- Incluye Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -16,7 +15,6 @@
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
     <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full text-center flex flex-col items-center">
-        <!-- Descripción Inicial, Glosario y Reducción -->
         <div class="mb-8 text-left text-gray-700">
             <h2 class="text-2xl font-bold text-indigo-800 mb-4">Paso a paso para tejer VIRGEN en Pepa Miyuki</h2>
             
@@ -47,18 +45,13 @@
             <hr class="my-6 border-t-2 border-gray-300">
         </div>
 
-        <!-- Paso Actual -->
         <div id="step-display" class="text-3xl font-bold text-indigo-700 mb-6">Paso 1</div>
 
-        <!-- Imagen en la mitad de la pantalla -->
-        <img id="step-image" src="https://i.imgur.com/XwxtEOu.png" alt="Imagen del paso actual" class="w-full h-auto rounded-lg shadow-md mb-8">
-
-        <!-- Patrón que debemos seguir -->
+        <img id="step-image" src="images/1.jpg" alt="Imagen del paso actual" class="max-w-md h-auto rounded-lg shadow-md mb-8 mx-auto">
         <div id="pattern-display" class="text-xl text-gray-800 mb-8 px-4 leading-relaxed">
             Prepara tu espacio de trabajo.
         </div>
 
-        <!-- Contenedor de Botones de Navegación -->
         <div class="flex justify-center space-x-4 w-full">
             <button id="prev-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
                 Anterior
@@ -72,67 +65,67 @@
     <script>
         // Array de pasos con sus patrones e imágenes
         const steps = [
-    {
-        pattern: "D 2N 10P 1N 1D 4V",
-        imageUrl: "images/1.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D N 5P N",
-        imageUrl: "images/2.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D 3P 2C P N V",
-        imageUrl: "images/3.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "V D N 3C P C N",
-        imageUrl: "images/4.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D 2C 4P N V",
-        imageUrl: "images/5.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "V D 6P N",
-        imageUrl: "images/6.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D 3P 2N P N V",
-        imageUrl: "images/7.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "V D 2P N 3P N",
-        imageUrl: "images/8.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D 2N 4P N V",
-        imageUrl: "images/9.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "V D 4P C 2N",
-        imageUrl: "images/10.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D C 5P N V",
-        imageUrl: "images/11.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "2D 4P C P N",
-        imageUrl: "images/12.jpg" // Cambia la extensión si es .png o .jpeg
-    },
-    {
-        pattern: "D C P C 3P N V",
-        imageUrl: "images/13.jpg" // Aquí es donde debes poner la ruta a tu imagen del Paso 13.
-    },
-    {
-        pattern: "V D 2P 2C P C D",
-        imageUrl: "images/14.jpg" // Y aquí para el Paso 14.
-    },
-    {
-        pattern: "REDUCCION (Consulta la explicación de reducción al inicio de la guía)",
-        imageUrl: "images/15.jpg" // Y aquí para el Paso 15.
-    }
-];
+            {
+                pattern: "D 2N 10P 1N 1D 4V",
+                imageUrl: "images/1.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D N 5P N",
+                imageUrl: "images/2.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D 3P 2C P N V",
+                imageUrl: "images/3.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "V D N 3C P C N",
+                imageUrl: "images/4.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D 2C 4P N V",
+                imageUrl: "images/5.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "V D 6P N",
+                imageUrl: "images/6.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D 3P 2N P N V",
+                imageUrl: "images/7.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "V D 2P N 3P N",
+                imageUrl: "images/8.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D 2N 4P N V",
+                imageUrl: "images/9.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "V D 4P C 2N",
+                imageUrl: "images/10.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D C 5P N V",
+                imageUrl: "images/11.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "2D 4P C P N",
+                imageUrl: "images/12.jpg" // Cambia la extensión si es .png o .jpeg
+            },
+            {
+                pattern: "D C P C 3P N V",
+                imageUrl: "images/13.jpg" // Aquí es donde debes poner la ruta a tu imagen del Paso 13.
+            },
+            {
+                pattern: "V D 2P 2C P C D",
+                imageUrl: "images/14.jpg" // Y aquí para el Paso 14.
+            },
+            {
+                pattern: "REDUCCION (Consulta la explicación de reducción al inicio de la guía)",
+                imageUrl: "images/15.jpg" // Y aquí para el Paso 15.
+            }
+        ];
 
         let currentStepIndex = 0; // El índice actual del paso (empezando desde 0)
 
