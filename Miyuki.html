@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Pasos Miyuki</title>
+    <!-- Incluye Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Fondo gris claro */
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full text-center flex flex-col items-center">
+        <!-- Descripción Inicial, Glosario y Reducción -->
+        <div class="mb-8 text-left text-gray-700">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">Paso a paso para tejer VIRGEN en Pepa Miyuki</h2>
+            
+            <p class="mb-4">
+                ¡Bienvenida/o a esta guía detallada para crear tu pieza de Miyuki! Sigue los pasos cuidadosamente para lograr un resultado hermoso.
+            </p>
+
+            <h3 class="text-xl font-semibold text-indigo-700 mb-2">Glosario de Letras</h3>
+            <ul class="list-disc list-inside mb-4 ml-4">
+                <li><span class="font-bold">D</span> = Dorado</li>
+                <li><span class="font-bold">N</span> = Negro</li>
+                <li><span class="font-bold">P</span> = Piel</li>
+                <li><span class="font-bold">V</span> = Verde</li>
+                <li><span class="font-bold">C</span> = Café</li>
+                <li><span class="font-bold">R</span> = Rojo</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-700 mb-2">Explicación de Reducción</h3>
+            <p class="mb-2">
+                Hay dos tipos de reducción:
+            </p>
+            <p class="mb-4">
+                1. Cuando decimos agregar una pepa y luego poner el hilo por la misma, notarás que al poner la última pepa queda un espacio vacío. Meterás la aguja por la pepa que queda justo encima donde te quedó el hilo y agregarás la pepa indicada como si fueras a hacer una hilera. Quedarás con el hilo justo debajo de la última hilera. Meterás la aguja hacia donde está la pepa en la pepa justo detrás donde te queda el hilo. Si tienes el hilo apuntando hacia arriba justo a la derecha habrán dos pepas: la que acabas de poner y una detrás de la que pusiste. Meterás la aguja hacia arriba por la anterior a la que pusiste y por último el hilo por la pepa que metiste.
+            </p>
+            <p class="mb-4">
+                2. Después de poner la última pepa antes de una reducción, formas una especie de escalón y el hilo queda en la última pepa de la fila anterior. Meterás el hilo justo en la pepa anterior por la que salió el hilo. Ahora verás la penúltima columna. Desde la pepa que metiste hacia lo que ya está terminado habrán 3 pepas contando la que pusiste. Meterás la aguja en dirección a donde sale el hilo en la tercera, devolverás por la segunda en dirección contraria y por último metes la aguja en la que pusiste.
+            </p>
+            <hr class="my-6 border-t-2 border-gray-300">
+        </div>
+
+        <!-- Paso Actual -->
+        <div id="step-display" class="text-3xl font-bold text-indigo-700 mb-6">Paso 1</div>
+
+        <!-- Imagen en la mitad de la pantalla -->
+        <img id="step-image" src="https://i.imgur.com/XwxtEOu.png" alt="Imagen del paso actual" class="w-full h-auto rounded-lg shadow-md mb-8">
+
+        <!-- Patrón que debemos seguir -->
+        <div id="pattern-display" class="text-xl text-gray-800 mb-8 px-4 leading-relaxed">
+            Prepara tu espacio de trabajo.
+        </div>
+
+        <!-- Contenedor de Botones de Navegación -->
+        <div class="flex justify-center space-x-4 w-full">
+            <button id="prev-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+                Anterior
+            </button>
+            <button id="next-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                Siguiente
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Array de pasos con sus patrones e imágenes
+        const steps = [
+            {
+                pattern: "D 2N 10P 1N 1D 4V",
+                imageUrl: "https://i.imgur.com/XwxtEOu.png" 
+            },
+            {
+                pattern: "D N 5P N",
+                imageUrl: "https://i.imgur.com/hxMnLbu.jpeg" // URL de Imgur para el Paso 2
+            },
+            {
+                pattern: "D 3P 2C P N V",
+                imageUrl: "https://i.imgur.com/Mssx0Px.jpeg" // URL de Imgur para el Paso 3
+            },
+            {
+                pattern: "V D N 3C P C N",
+                imageUrl: "https://i.imgur.com/xPoWzhP.jpeg" // URL de Imgur para el Paso 4
+            },
+            {
+                pattern: "D 2C 4P N V",
+                imageUrl: "https://i.imgur.com/9tjpRHF.jpeg" // URL de Imgur para el Paso 5
+            },
+            {
+                pattern: "V D 6P N",
+                imageUrl: "https://i.imgur.com/BDbozmf.jpeg" // URL de Imgur para el Paso 6
+            },
+            {
+                pattern: "D 3P 2N P N V",
+                imageUrl: "https://i.imgur.com/hl7NCke.jpeg" // URL de Imgur para el Paso 7
+            },
+            {
+                pattern: "V D 2P N 3P N",
+                imageUrl: "https://i.imgur.com/bVfXDAw.jpeg" // URL de Imgur para el Paso 8
+            },
+            {
+                pattern: "D 2N 4P N V",
+                imageUrl: "https://i.imgur.com/TS6Y1er.jpeg" // URL de Imgur para el Paso 9
+            },
+            {
+                pattern: "V D 4P C 2N",
+                imageUrl: "https://i.imgur.com/Ce3wwBg.jpeg" // URL de Imgur para el Paso 10
+            },
+            {
+                pattern: "D C 5P N V",
+                imageUrl: "https://i.imgur.com/R6N9aCA.jpeg" // URL de Imgur para el Paso 11
+            },
+            {
+                pattern: "2D 4P C P N",
+                imageUrl: "https://i.imgur.com/f4IRVxo.jpeg" // URL de Imgur para el Paso 12
+            },
+            {
+                pattern: "D C P C 3P N V",
+                imageUrl: "https://placehold.co/400x250/06b6d4/ffffff?text=Paso+13"
+            },
+            {
+                pattern: "V D 2P 2C P C D", 
+                imageUrl: "https://placehold.co/400x250/10b981/ffffff?text=Paso+14"
+            },
+            {
+                pattern: "REDUCCION (Consulta la explicación de reducción al inicio de la guía)", 
+                imageUrl: "https://placehold.co/400x250/6b7280/ffffff?text=Paso+15:+Reduccion"
+            }
+        ];
+
+        let currentStepIndex = 0; // El índice actual del paso (empezando desde 0)
+
+        // Obtener referencias a los elementos del DOM
+        const stepDisplay = document.getElementById('step-display');
+        const stepImage = document.getElementById('step-image');
+        const patternDisplay = document.getElementById('pattern-display');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+
+        /**
+         * Actualiza el contenido de la interfaz de usuario con el paso actual.
+         */
+        function updateUI() {
+            // Actualiza el número de paso
+            stepDisplay.textContent = `Paso ${currentStepIndex + 1}`;
+
+            // Actualiza la imagen
+            stepImage.src = steps[currentStepIndex].imageUrl;
+            stepImage.alt = `Imagen del Paso ${currentStepIndex + 1}`;
+
+            // Actualiza el patrón a seguir
+            patternDisplay.textContent = steps[currentStepIndex].pattern;
+
+            // Habilita o deshabilita los botones según el paso actual
+            prevButton.disabled = currentStepIndex === 0; // Deshabilita "Anterior" en el primer paso
+            nextButton.disabled = currentStepIndex === steps.length - 1; // Deshabilita "Siguiente" en el último paso
+
+            // Aplica estilos de Tailwind para deshabilitar visualmente los botones
+            if (prevButton.disabled) {
+                prevButton.classList.add('opacity-50', 'cursor-not-allowed');
+                prevButton.classList.remove('hover:bg-gray-400', 'hover:scale-105');
+            } else {
+                prevButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                prevButton.classList.add('hover:bg-gray-400', 'hover:scale-105');
+            }
+
+            if (nextButton.disabled) {
+                nextButton.classList.add('opacity-50', 'cursor-not-allowed');
+                nextButton.classList.remove('hover:bg-indigo-700', 'hover:scale-105');
+            } else {
+                nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextButton.classList.add('hover:bg-indigo-700', 'hover:scale-105');
+            }
+        }
+
+        // Manejador de eventos para el botón "Siguiente"
+        nextButton.addEventListener('click', () => {
+            if (currentStepIndex < steps.length - 1) {
+                currentStepIndex++;
+                updateUI();
+            }
+        });
+
+        // Manejador de eventos para el botón "Anterior"
+        prevButton.addEventListener('click', () => {
+            if (currentStepIndex > 0) {
+                currentStepIndex--;
+                updateUI();
+            }
+        });
+
+        // Inicializar la UI al cargar la página
+        window.onload = updateUI;
+    </script>
+</body>
+</html>
