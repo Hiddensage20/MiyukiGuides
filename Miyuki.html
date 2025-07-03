@@ -11,29 +11,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Fondo gris claro */
         }
-        /* Estilos adicionales para controlar el scroll dentro del contenedor de contenido */
-        .scrollable-content {
-            max-height: calc(100vh - 250px); /* Ajusta este valor según la altura de tu encabezado y pie de página */
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* Para un scroll más suave en iOS */
-            padding-right: 1rem; /* Espacio para la barra de scroll si aparece */
-        }
-
-        /* Opcional: Ajustar el scrollbar para una mejor estética (requiere un poco más de CSS) */
-        .scrollable-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        .scrollable-content::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .scrollable-content::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-        .scrollable-content::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+        /* Hemos eliminado los estilos de .scrollable-content de aquí */
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
@@ -69,16 +47,16 @@
             <hr class="my-6 border-t-2 border-gray-300">
         </div>
 
-        <div class="scrollable-content w-full flex flex-col items-center">
-            <div id="step-display" class="text-3xl font-bold text-indigo-700 mb-6 sticky top-0 bg-white py-2 z-10 w-full">Paso 1</div>
+        <div id="step-display" class="text-3xl font-bold text-indigo-700 mb-6">Paso 1</div>
 
-            <img id="step-image" src="images/1.jpg" alt="Imagen del paso actual" class="max-w-md h-auto rounded-lg shadow-md mb-8 mx-auto">
+        <img id="step-image" src="images/1.jpg" alt="Imagen del paso actual" class="max-w-md h-auto rounded-lg shadow-md mb-8 mx-auto">
 
-            <div id="pattern-display" class="text-xl text-gray-800 mb-8 px-4 leading-relaxed">
-                Prepara tu espacio de trabajo.
-            </div>
+        <div id="pattern-display" class="text-xl text-gray-800 mb-8 px-4 leading-relaxed">
+            Prepara tu espacio de trabajo.
         </div>
-        <div class="flex justify-center space-x-4 w-full mt-auto py-4"> <button id="prev-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+
+        <div class="flex justify-center space-x-4 w-full mt-auto py-4">
+            <button id="prev-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
                 Anterior
             </button>
             <button id="next-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
