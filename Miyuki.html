@@ -67,118 +67,207 @@
         // Array de pasos con sus patrones e imágenes
         const steps = [
             {
-                pattern: "Prepara tu espacio de trabajo.", // Este será el contenido del Paso 1
+                pattern: "Prepara tu espacio de trabajo.", // Este será el contenido del Paso 1 (índice 0)
                 imageUrl: "images/1.jpg"
             },
             {
-                pattern: "D 2N 10P 1N 1D 4V",
-                imageUrl: "images/1.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D 2N 10P 1N 1D 4V", // Paso 2 (índice 1)
+                imageUrl: "images/1.jpg"
             },
             {
-                pattern: "D N 5P N",
-                imageUrl: "images/2.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D N 5P N", // Paso 3 (índice 2)
+                imageUrl: "images/2.jpg"
             },
             {
-                pattern: "D 3P 2C P N V",
-                imageUrl: "images/3.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D 3P 2C P N V", // Paso 4 (índice 3)
+                imageUrl: "images/3.jpg"
             },
             {
-                pattern: "V D N 3C P C N",
-                imageUrl: "images/4.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "V D N 3C P C N", // Paso 5 (índice 4)
+                imageUrl: "images/4.jpg"
             },
             {
-                pattern: "D 2C 4P N V",
-                imageUrl: "images/5.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D 2C 4P N V", // Paso 6 (índice 5)
+                imageUrl: "images/5.jpg"
             },
             {
-            pattern: "V D 6P N",
-            imageUrl: "images/6.jpg" // Asegúrate de que dice 'images', no 'imager'
-        },
-            {
-                pattern: "D 3P 2N P N V",
-                imageUrl: "images/7.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "V D 6P N", // Paso 7 (índice 6)
+                imageUrl: "images/6.jpg"
             },
             {
-                pattern: "V D 2P N 3P N",
-                imageUrl: "images/8.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D 3P 2N P N V", // Paso 8 (índice 7)
+                imageUrl: "images/7.jpg"
             },
             {
-                pattern: "D 2N 4P N V",
-                imageUrl: "images/9.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "V D 2P N 3P N", // Paso 9 (índice 8)
+                imageUrl: "images/8.jpg"
             },
             {
-                pattern: "V D 4P C 2N",
-                imageUrl: "images/10.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D 2N 4P N V", // Paso 10 (índice 9)
+                imageUrl: "images/9.jpg"
             },
             {
-                pattern: "D C 5P N V",
-                imageUrl: "images/11.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "V D 4P C 2N", // Paso 11 (índice 10)
+                imageUrl: "images/10.jpg"
             },
             {
-                pattern: "2D 4P C P N",
-                imageUrl: "images/12.jpg" // Cambia la extensión si es .png o .jpeg
+                pattern: "D C 5P N V", // Paso 12 (índice 11)
+                imageUrl: "images/11.jpg"
             },
             {
-                pattern: "D C P C 3P N V",
-                imageUrl: "images/13.jpg" // Aquí es donde debes poner la ruta a tu imagen del Paso 13.
+                pattern: "2D 4P C P N", // Paso 13 (índice 12)
+                imageUrl: "images/12.jpg"
             },
             {
-                pattern: "V D 5P C N",
-                imageUrl: "images/14.jpg" // Y aquí para el Paso 14.
+                pattern: "D C P C 3P N V", // Paso 14 (índice 13) - He revertido este patrón a lo que teníamos antes
+                imageUrl: "images/13.jpg" // He revertido esta imagen a lo que teníamos antes
             },
             {
-                pattern: "D N 5P N V",
-                imageUrl: "images/15.jpg" // Y aquí para el Paso 15.
+                pattern: "V D 5P C N", // Paso 15 (índice 14) - Este es el patrón que pusiste para 14
+                imageUrl: "images/14.jpg" // Este es el imageUrl que pusiste para 14
+            },
+            {
+                pattern: "D N 5P N V", // Paso 16 (índice 15) - Este es el patrón que pusiste para 15
+                imageUrl: "images/15.jpg" // Este es el imageUrl que pusiste para 15
+            },
+            // --- AÑADE TUS NUEVOS 24 PASOS AQUÍ ABAJO (del 17 al 39 si el anterior es 16) ---
+            // ¡Recuerda que el índice del array es 'número de paso - 1'!
+            // Entonces el Paso 17 es el índice 16.
+
+            {
+                pattern: "Paso 17: Patrón de ejemplo para el paso 17",
+                imageUrl: "images/17.jpg"
+            },
+            {
+                pattern: "Paso 18: Patrón de ejemplo para el paso 18",
+                imageUrl: "images/18.jpg"
+            },
+            {
+                pattern: "Paso 19: Patrón de ejemplo para el paso 19",
+                imageUrl: "images/19.jpg"
+            },
+            {
+                pattern: "Paso 20: Patrón de ejemplo para el paso 20",
+                imageUrl: "images/20.jpg"
+            },
+            {
+                pattern: "Paso 21: Patrón de ejemplo para el paso 21",
+                imageUrl: "images/21.jpg"
+            },
+            {
+                pattern: "Paso 22: Patrón de ejemplo para el paso 22",
+                imageUrl: "images/22.jpg"
+            },
+            {
+                pattern: "Paso 23: Patrón de ejemplo para el paso 23",
+                imageUrl: "images/23.jpg"
+            },
+            {
+                pattern: "Paso 24: Patrón de ejemplo para el paso 24",
+                imageUrl: "images/24.jpg"
+            },
+            {
+                pattern: "Paso 25: Patrón de ejemplo para el paso 25",
+                imageUrl: "images/25.jpg"
+            },
+            {
+                pattern: "Paso 26: Patrón de ejemplo para el paso 26",
+                imageUrl: "images/26.jpg"
+            },
+            {
+                pattern: "Paso 27: Patrón de ejemplo para el paso 27",
+                imageUrl: "images/27.jpg"
+            },
+            {
+                pattern: "Paso 28: Patrón de ejemplo para el paso 28",
+                imageUrl: "images/28.jpg"
+            },
+            {
+                pattern: "Paso 29: Patrón de ejemplo para el paso 29",
+                imageUrl: "images/29.jpg"
+            },
+            {
+                pattern: "Paso 30: Patrón de ejemplo para el paso 30",
+                imageUrl: "images/30.jpg"
+            },
+            {
+                pattern: "Paso 31: Patrón de ejemplo para el paso 31",
+                imageUrl: "images/31.jpg"
+            },
+            {
+                pattern: "Paso 32: Patrón de ejemplo para el paso 32",
+                imageUrl: "images/32.jpg"
+            },
+            {
+                pattern: "Paso 33: Patrón de ejemplo para el paso 33",
+                imageUrl: "images/33.jpg"
+            },
+            {
+                pattern: "Paso 34: Patrón de ejemplo para el paso 34",
+                imageUrl: "images/34.jpg"
+            },
+            {
+                pattern: "Paso 35: Patrón de ejemplo para el paso 35",
+                imageUrl: "images/35.jpg"
+            },
+            {
+                pattern: "Paso 36: Patrón de ejemplo para el paso 36",
+                imageUrl: "images/36.jpg"
+            },
+            {
+                pattern: "Paso 37: Patrón de ejemplo para el paso 37",
+                imageUrl: "images/37.jpg"
+            },
+            {
+                pattern: "Paso 38: Patrón de ejemplo para el paso 38",
+                imageUrl: "images/38.jpg"
+            },
+            {
+                pattern: "Paso 39: Patrón de ejemplo para el paso 39",
+                imageUrl: "images/39.jpg"
+            },
+            {
+                pattern: "Paso 40: Este sería el Paso 40 si necesitas añadir más.", // Ejemplo de cómo sería el siguiente paso
+                imageUrl: "images/40.jpg"
             }
+            // --- ¡IMPORTANTE! El ÚLTIMO paso en el array NO debe llevar coma al final ---
         ];
 
-        let currentStepIndex = 0; // El índice actual del paso (empezando desde 0)
+        let currentStepIndex = 0;
 
-        // Obtener referencias a los elementos del DOM
-        const initialInstructions = document.getElementById('initial-instructions'); // Nueva referencia
+        const initialInstructions = document.getElementById('initial-instructions');
         const stepDisplay = document.getElementById('step-display');
         const stepImage = document.getElementById('step-image');
         const patternDisplay = document.getElementById('pattern-display');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
 
-        /**
-         * Actualiza el contenido de la interfaz de usuario con el paso actual.
-         */
         function updateUI() {
-            // Lógica para mostrar/ocultar las instrucciones iniciales
             if (currentStepIndex === 0) {
-                initialInstructions.classList.remove('hidden'); // Muestra las instrucciones
+                initialInstructions.classList.remove('hidden');
             } else {
-                initialInstructions.classList.add('hidden'); // Oculta las instrucciones
+                initialInstructions.classList.add('hidden');
             }
 
-            // Actualiza el número de paso
             stepDisplay.textContent = `Paso ${currentStepIndex + 1}`;
-
-            // Actualiza la imagen
             stepImage.src = steps[currentStepIndex].imageUrl;
             stepImage.alt = `Imagen del Paso ${currentStepIndex + 1}`;
-
-            // Actualiza el patrón a seguir
             patternDisplay.textContent = steps[currentStepIndex].pattern;
 
-            // Habilita o deshabilita los botones según el paso actual
-            prevButton.disabled = currentStepIndex === 0; // Deshabilita "Anterior" en el primer paso
+            prevButton.disabled = currentStepIndex === 0;
             prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
             prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
             prevButton.classList.toggle('hover:bg-gray-400', currentStepIndex !== 0);
             prevButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
 
 
-            nextButton.disabled = currentStepIndex === steps.length - 1; // Deshabilita "Siguiente" en el último paso
+            nextButton.disabled = currentStepIndex === steps.length - 1;
             nextButton.classList.toggle('opacity-50', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('cursor-not-allowed', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('hover:bg-indigo-700', currentStepIndex !== steps.length - 1);
             nextButton.classList.toggle('hover:scale-105', currentStepIndex !== steps.length - 1);
         }
 
-        // Manejador de eventos para el botón "Siguiente"
         nextButton.addEventListener('click', () => {
             if (currentStepIndex < steps.length - 1) {
                 currentStepIndex++;
@@ -186,7 +275,6 @@
             }
         });
 
-        // Manejador de eventos para el botón "Anterior"
         prevButton.addEventListener('click', () => {
             if (currentStepIndex > 0) {
                 currentStepIndex--;
@@ -194,7 +282,6 @@
             }
         });
 
-        // Inicializar la UI al cargar la página
         window.onload = updateUI;
     </script>
 </body>
