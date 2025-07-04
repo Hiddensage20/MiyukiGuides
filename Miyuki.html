@@ -51,7 +51,7 @@
         }
 
         /* ******************************************************************************** */
-        /* ESTILOS MODIFICADOS PARA EL TOOLTIP */
+        /* ESTILOS MODIFICADOS PARA EL TOOLTIP (sin cambios en esta iteración) */
         .tooltip-box {
             position: absolute;
             background-color: #ffffff; /* Fondo blanco, como el contenedor principal */
@@ -69,16 +69,28 @@
             border: 1px solid #e2e8f0; /* Un borde sutil para que resalte del fondo */
         }
 
-        /* Estilo para la "cola" del tooltip (ajustada al nuevo color de fondo) */
-        .tooltip-box::before {
+        /* Estilo para la "cola" del tooltip cuando está ABAJO del enlace (apunta hacia ARRIBA) */
+        .tooltip-box.bottom::before {
             content: '';
             position: absolute;
-            bottom: 100%; 
+            bottom: 100%; /* Arriba del tooltip */
             left: 50%;
             transform: translateX(-50%);
-            border-width: 8px; /* Más grande la cola */
+            border-width: 8px;
             border-style: solid;
-            border-color: transparent transparent #ffffff transparent; /* Coincide con el color de fondo del tooltip */
+            border-color: transparent transparent #ffffff transparent; 
+        }
+
+        /* Estilo para la "cola" del tooltip cuando está ARRIBA del enlace (apunta hacia ABAJO) */
+        .tooltip-box.top::before {
+            content: '';
+            position: absolute;
+            top: 100%; /* Abajo del tooltip */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: #ffffff transparent transparent transparent; 
         }
         /* ******************************************************************************** */
     </style>
@@ -219,7 +231,7 @@
             // Este es el paso 18 (índice 17) donde quieres el pop-up y el tooltip
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/17.jpg"
+                imageUrl: "images/18.jpg"
             },
             {
                 pattern: "Paso 19: Patrón de ejemplo para el paso 19",
@@ -323,9 +335,11 @@
         const reductionType2Modal = document.getElementById('reduction-type2-modal');
         const closeModalButton = document.getElementById('close-modal-button');
 
-        // Referencia para el tooltip
         const reductionType2Tooltip = document.getElementById('reduction-type2-tooltip');
 
+        /**
+         * Actualiza el contenido de la interfaz de usuario con el paso actual.
+         */
         function updateUI() {
             if (currentStepIndex === 0) {
                 initialInstructions.classList.remove('hidden');
@@ -347,31 +361,62 @@
                 
                 const reductionLink = document.getElementById('reduction-type2-link');
                 if (reductionLink) {
-                    // Evento de click para el modal
                     reductionLink.onclick = () => {
                         reductionType2Modal.classList.remove('hidden');
-                        reductionType2Tooltip.classList.add('hidden'); // Oculta el tooltip si está visible al hacer clic
+                        reductionType2Tooltip.classList.add('hidden'); 
                     };
 
-                    // Eventos para el Tooltip (mouseover y mouseout)
-                    reductionLink.onmouseover = (event) => {
+                    reductionLink.onmouseover = () => {
                         reductionType2Tooltip.classList.remove('hidden');
-                        reductionType2Tooltip.style.opacity = '1';
-
-                        // Posicionar el tooltip
-                        const linkRect = reductionLink.getBoundingClientRect();
+                        // Para asegurar que el tooltip tiene dimensiones antes de calcular
+                        reductionType2Tooltip.style.opacity = '0'; // Mantener oculto inicialmente
+                        reductionType2Tooltip.style.visibility = 'hidden'; // Asegurar que no ocupe espacio
                         
-                        // Centrar el tooltip con respecto al enlace
-                        let tooltipLeft = linkRect.left + (linkRect.width / 2) - (reductionType2Tooltip.offsetWidth / 2);
-                        // Asegurarse de que el tooltip no se salga de los bordes de la ventana
-                        if (tooltipLeft < 0) tooltipLeft = 0;
-                        if (tooltipLeft + reductionType2Tooltip.offsetWidth > window.innerWidth) {
-                            tooltipLeft = window.innerWidth - reductionType2Tooltip.offsetWidth;
+                        // Necesitamos forzar un reflow para que el navegador calcule el offsetHeight
+                        reductionType2Tooltip.offsetWidth; // Truco para forzar reflow
+
+                        const linkRect = reductionLink.getBoundingClientRect();
+                        const tooltipHeight = reductionType2Tooltip.offsetHeight;
+                        const tooltipWidth = reductionType2Tooltip.offsetWidth; // También obtenemos el ancho
+
+                        // Calcular el espacio disponible arriba y abajo del enlace
+                        const spaceBelow = window.innerHeight - (linkRect.bottom + 10); // 10px de margen
+                        const spaceAbove = linkRect.top - 10; // 10px de margen
+
+                        let tooltipTop;
+                        let tooltipLeft;
+
+                        // Determinar si hay más espacio abajo o arriba para posicionar
+                        // Priorizar arriba si el elemento está en la mitad inferior de la pantalla y hay espacio
+                        if (linkRect.top > window.innerHeight / 2 && spaceAbove >= tooltipHeight) {
+                            // Elemento en la mitad inferior Y suficiente espacio arriba
+                            tooltipTop = linkRect.top + window.scrollY - tooltipHeight - 10; // Posicionar arriba
+                            reductionType2Tooltip.classList.remove('bottom');
+                            reductionType2Tooltip.classList.add('top');
+                        } else {
+                            // Elemento en la mitad superior O no hay espacio suficiente arriba, intentar abajo
+                            tooltipTop = linkRect.bottom + window.scrollY + 10; // Posicionar abajo
+                            reductionType2Tooltip.classList.remove('top');
+                            reductionType2Tooltip.classList.add('bottom');
+                        }
+
+                        // Centrar el tooltip horizontalmente con el enlace
+                        tooltipLeft = linkRect.left + (linkRect.width / 2) - (tooltipWidth / 2);
+                        
+                        // Ajustar para que no se salga de los bordes laterales de la ventana
+                        const margin = 5; // Margen de los bordes
+                        if (tooltipLeft < margin) {
+                            tooltipLeft = margin;
+                        } else if (tooltipLeft + tooltipWidth > window.innerWidth - margin) {
+                            tooltipLeft = window.innerWidth - tooltipWidth - margin;
                         }
 
                         reductionType2Tooltip.style.left = `${tooltipLeft}px`;
-                        // Posicionar debajo del enlace con un pequeño margen
-                        reductionType2Tooltip.style.top = `${linkRect.bottom + window.scrollY + 10}px`; 
+                        reductionType2Tooltip.style.top = `${tooltipTop}px`;
+
+                        // Finalmente, mostrar el tooltip con la transición
+                        reductionType2Tooltip.style.visibility = 'visible';
+                        reductionType2Tooltip.style.opacity = '1';
                     };
 
                     reductionLink.onmouseout = () => {
@@ -379,6 +424,10 @@
                         setTimeout(() => {
                             if (reductionType2Tooltip.style.opacity === '0') { 
                                 reductionType2Tooltip.classList.add('hidden');
+                                reductionType2Tooltip.style.visibility = 'hidden'; // Ocultar completamente
+                                // Remover las clases de posición para limpiar y evitar conflictos futuros
+                                reductionType2Tooltip.classList.remove('top');
+                                reductionType2Tooltip.classList.remove('bottom');
                             }
                         }, 200); 
                     };
@@ -387,6 +436,9 @@
                 patternDisplay.textContent = currentPatternText;
                 reductionType2Tooltip.classList.add('hidden');
                 reductionType2Tooltip.style.opacity = '0';
+                reductionType2Tooltip.style.visibility = 'hidden'; // Ocultar completamente
+                reductionType2Tooltip.classList.remove('top');
+                reductionType2Tooltip.classList.remove('bottom');
             }
 
             prevButton.disabled = currentStepIndex === 0;
