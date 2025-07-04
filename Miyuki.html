@@ -12,7 +12,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Fondo gris claro */
         }
-        /* Estilos adicionales para el modal/popup */
+        /* Estilos para el modal/popup (los mismos que antes) */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -49,6 +49,37 @@
         .close-button:hover {
             color: #2d3748; /* gray-900 */
         }
+
+        /* ******************************************************************************** */
+        /* NUEVOS ESTILOS PARA EL TOOLTIP */
+        .tooltip-box {
+            position: absolute;
+            background-color: #333; /* Fondo oscuro */
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            max-width: 250px; /* Ancho máximo para el tooltip */
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 99; /* Por debajo del modal, pero por encima del contenido normal */
+            pointer-events: none; /* Permite hacer clic a través del tooltip */
+            opacity: 0; /* Inicialmente oculto */
+            transition: opacity 0.2s ease-in-out; /* Transición suave para aparecer/desaparecer */
+        }
+
+        /* Estilo para la "cola" del tooltip (opcional, para que parezca una burbuja de diálogo) */
+        .tooltip-box::before {
+            content: '';
+            position: absolute;
+            bottom: 100%; /* Arriba del tooltip */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent; /* Triángulo apuntando hacia arriba */
+        }
+        /* ******************************************************************************** */
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
@@ -78,7 +109,7 @@
             <p class="mb-4">
                 1. Cuando decimos agregar una pepa y luego poner el hilo por la misma, notarás que al poner la última pepa queda un espacio vacío. Meterás la aguja por la pepa que queda justo encima donde te quedó el hilo y agregarás la pepa indicada como si fueras a hacer una hilera. Quedarás con el hilo justo debajo de la última hilera. Meterás la aguja hacia donde está la pepa en la pepa justo detrás donde te queda el hilo. Si tienes el hilo apuntando hacia arriba justo a la derecha habrán dos pepas: la que acabas de poner y una detrás de la que pusiste. Meterás la aguja hacia arriba por la anterior a la que pusiste y por último el hilo por la pepa que metiste.
             </p>
-            <p class="mb-4">
+            <p class="mb-4" id="long-explanation-type-2">
                 2. Después de poner la última pepa antes de una reducción, formas una especie de escalón y el hilo queda en la última pepa de la fila anterior. Meterás el hilo justo en la pepa anterior por la que salió el hilo. Ahora verás la penúltima columna. Desde la pepa que metiste hacia lo que ya está terminado habrán 3 pepas contando la que pusiste. Meterás la aguja en dirección a donde sale el hilo en la tercera, devolverás por la segunda en dirección contraria y por último metes la aguja en la que pusiste.
             </p>
             <hr class="my-6 border-t-2 border-gray-300">
@@ -110,82 +141,87 @@
             </p>
         </div>
     </div>
+    <div id="reduction-type2-tooltip" class="tooltip-box hidden">
+        <p>
+            **Reducción Tipo 2 (Resumen):** El hilo queda en la última pepa de la fila anterior. Se mete el hilo por la pepa anterior a la que salió, luego en la tercera desde la pepa puesta, se devuelve por la segunda y se mete por la que pusiste.
+        </p>
+    </div>
     <script>
         // Array de pasos con sus patrones e imágenes
         const steps = [
             {
-                pattern: "Prepara tu espacio de trabajo.", // Este será el contenido del Paso 1 (índice 0)
+                pattern: "Prepara tu espacio de trabajo.",
                 imageUrl: "images/1.jpg"
             },
             {
-                pattern: "D 2N 10P 1N 1D 4V", // Paso 2 (índice 1)
+                pattern: "D 2N 10P 1N 1D 4V",
                 imageUrl: "images/1.jpg"
             },
             {
-                pattern: "D N 5P N", // Paso 3 (índice 2)
+                pattern: "D N 5P N",
                 imageUrl: "images/2.jpg"
             },
             {
-                pattern: "D 3P 2C P N V", // Paso 4 (índice 3)
+                pattern: "D 3P 2C P N V",
                 imageUrl: "images/3.jpg"
             },
             {
-                pattern: "V D N 3C P C N", // Paso 5 (índice 4)
+                pattern: "V D N 3C P C N",
                 imageUrl: "images/4.jpg"
             },
             {
-                pattern: "D 2C 4P N V", // Paso 6 (índice 5)
+                pattern: "D 2C 4P N V",
                 imageUrl: "images/5.jpg"
             },
             {
-                pattern: "V D 6P N", // Paso 7 (índice 6)
+                pattern: "V D 6P N",
                 imageUrl: "images/6.jpg"
             },
             {
-                pattern: "D 3P 2N P N V", // Paso 8 (índice 7)
+                pattern: "D 3P 2N P N V",
                 imageUrl: "images/7.jpg"
             },
             {
-                pattern: "V D 2P N 3P N", // Paso 9 (índice 8)
+                pattern: "V D 2P N 3P N",
                 imageUrl: "images/8.jpg"
             },
             {
-                pattern: "D 2N 4P N V", // Paso 10 (índice 9)
+                pattern: "D 2N 4P N V",
                 imageUrl: "images/9.jpg"
             },
             {
-                pattern: "V D 4P C 2N", // Paso 11 (índice 10)
+                pattern: "V D 4P C 2N",
                 imageUrl: "images/10.jpg"
             },
             {
-                pattern: "D C 5P N V", // Paso 12 (índice 11)
+                pattern: "D C 5P N V",
                 imageUrl: "images/11.jpg"
             },
             {
-                pattern: "2D 4P C P N", // Paso 13 (índice 12)
+                pattern: "2D 4P C P N",
                 imageUrl: "images/12.jpg"
             },
             {
-                pattern: "D C P C 3P N V", // Paso 14 (índice 13)
+                pattern: "D C P C 3P N V",
                 imageUrl: "images/13.jpg"
             },
             {
-                pattern: "V D 5P C N", // Paso 15 (índice 14)
+                pattern: "V D 5P C N",
                 imageUrl: "images/14.jpg"
             },
             {
-                pattern: "D N 5P N V", // Paso 16 (índice 15)
+                pattern: "D N 5P N V",
                 imageUrl: "images/15.jpg"
             },
             {
-                pattern: "V D 2P 2C P C D", // Paso 17 (índice 16) - Tu código original lo tenía como Paso 16
+                pattern: "V D 2P 2C P C D",
                 imageUrl: "images/16.jpg"
             },
             // ********************************************************************************
-            // Este es el paso 18 (índice 17) donde quieres el pop-up
+            // Este es el paso 18 (índice 17) donde quieres el pop-up y el tooltip
             {
-                pattern: "REDUCCION (Reducción Tipo 2)", // **ESTE ES EL TEXTO CLAVE QUE ACTIVARÁ EL POP-UP**
-                imageUrl: "images/18.jpg" // Asegúrate de tener esta imagen
+                pattern: "REDUCCION (Reducción Tipo 2)", // **ESTE ES EL TEXTO CLAVE QUE ACTIVARÁ AMBAS COSAS**
+                imageUrl: "images/18.jpg"
             },
             // ********************************************************************************
             {
@@ -276,83 +312,108 @@
                 pattern: "Paso 40: Este sería el Paso 40 si necesitas añadir más.",
                 imageUrl: "images/40.jpg"
             }
-            // --- ¡IMPORTANTE! El ÚLTIMO paso en el array NO debe llevar coma al final ---
         ];
 
-        let currentStepIndex = 0; // El índice actual del paso (empezando desde 0)
+        let currentStepIndex = 0;
 
-        // Obtener referencias a los elementos del DOM
-        const initialInstructions = document.getElementById('initial-instructions'); // Nueva referencia
+        const initialInstructions = document.getElementById('initial-instructions');
         const stepDisplay = document.getElementById('step-display');
         const stepImage = document.getElementById('step-image');
         const patternDisplay = document.getElementById('pattern-display');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
 
-        // Nuevas referencias para el modal
+        // Referencias para el modal (las mismas que antes)
         const reductionType2Modal = document.getElementById('reduction-type2-modal');
         const closeModalButton = document.getElementById('close-modal-button');
+
+        // ********************************************************************************
+        // NUEVAS REFERENCIAS PARA EL TOOLTIP
+        const reductionType2Tooltip = document.getElementById('reduction-type2-tooltip');
+        // ********************************************************************************
 
         /**
          * Actualiza el contenido de la interfaz de usuario con el paso actual.
          */
         function updateUI() {
-            // Lógica para mostrar/ocultar las instrucciones iniciales
             if (currentStepIndex === 0) {
-                initialInstructions.classList.remove('hidden'); // Muestra las instrucciones
+                initialInstructions.classList.remove('hidden');
             } else {
-                initialInstructions.classList.add('hidden'); // Oculta las instrucciones
+                initialInstructions.classList.add('hidden');
             }
 
-            // Actualiza el número de paso
             stepDisplay.textContent = `Paso ${currentStepIndex + 1}`;
-
-            // Actualiza la imagen
             stepImage.src = steps[currentStepIndex].imageUrl;
             stepImage.alt = `Imagen del Paso ${currentStepIndex + 1}`;
 
-            // Obtiene el patrón del paso actual
             const currentPatternText = steps[currentStepIndex].pattern;
             
             // ********************************************************************************
-            // Lógica para hacer el texto de "Reducción Tipo 2" clickeable y mostrar el modal
+            // Lógica para hacer el texto clickeable (para el modal) y añadir eventos de mouse (para el tooltip)
             if (currentPatternText.includes("Reducción Tipo 2")) {
-                // Reemplaza el texto con un span clickeable
                 patternDisplay.innerHTML = currentPatternText.replace(
                     "Reducción Tipo 2",
                     "<span id='reduction-type2-link' class='text-indigo-600 font-bold cursor-pointer hover:underline'>Reducción Tipo 2</span>"
                 );
                 
-                // Agrega el evento de clic al span recién creado
-                // Es importante hacer esto DESPUÉS de haber insertado el HTML en el DOM
                 const reductionLink = document.getElementById('reduction-type2-link');
                 if (reductionLink) {
+                    // Evento de click para el modal (funcionalidad existente)
                     reductionLink.onclick = () => {
-                        reductionType2Modal.classList.remove('hidden'); // Muestra el modal
+                        reductionType2Modal.classList.remove('hidden');
+                        reductionType2Tooltip.classList.add('hidden'); // Oculta el tooltip si está visible al hacer clic
                     };
+
+                    // ********************************************************************************
+                    // Eventos para el Tooltip (mouseover y mouseout)
+                    reductionLink.onmouseover = (event) => {
+                        reductionType2Tooltip.classList.remove('hidden');
+                        reductionType2Tooltip.style.opacity = '1'; // Mostrar con fade-in
+
+                        // Posicionar el tooltip
+                        const linkRect = reductionLink.getBoundingClientRect();
+                        const bodyRect = document.body.getBoundingClientRect();
+
+                        // Posicionar debajo y centrado horizontalmente con el enlace
+                        reductionType2Tooltip.style.left = `${linkRect.left + linkRect.width / 2 - reductionType2Tooltip.offsetWidth / 2}px`;
+                        reductionType2Tooltip.style.top = `${linkRect.bottom + window.scrollY + 10}px`; // 10px de margen debajo
+                    };
+
+                    reductionLink.onmouseout = () => {
+                        reductionType2Tooltip.style.opacity = '0'; // Ocultar con fade-out
+                        // Damos un pequeño retraso para que la transición de opacidad se complete antes de ocultar del todo
+                        setTimeout(() => {
+                            if (reductionType2Tooltip.style.opacity === '0') { // Solo ocultar si no se volvió a activar
+                                reductionType2Tooltip.classList.add('hidden');
+                            }
+                        }, 200); 
+                    };
+                    // ********************************************************************************
+
                 }
             } else {
-                // Si no es un patrón de reducción, asegura que solo sea texto plano
                 patternDisplay.textContent = currentPatternText;
+                // Asegurarse de que el tooltip esté oculto si cambiamos de paso y no es el de reducción
+                reductionType2Tooltip.classList.add('hidden');
+                reductionType2Tooltip.style.opacity = '0';
             }
             // ********************************************************************************
 
-            // Habilita o deshabilita los botones según el paso actual
-            prevButton.disabled = currentStepIndex === 0; // Deshabilita "Anterior" en el primer paso
+            // ... (resto de la lógica de botones, sin cambios)
+            prevButton.disabled = currentStepIndex === 0;
             prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
             prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
             prevButton.classList.toggle('hover:bg-gray-400', currentStepIndex !== 0);
             prevButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
 
 
-            nextButton.disabled = currentStepIndex === steps.length - 1; // Deshabilita "Siguiente" en el último paso
+            nextButton.disabled = currentStepIndex === steps.length - 1;
             nextButton.classList.toggle('opacity-50', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('cursor-not-allowed', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('hover:bg-indigo-700', currentStepIndex !== steps.length - 1);
             nextButton.classList.toggle('hover:scale-105', currentStepIndex !== steps.length - 1);
         }
 
-        // Manejador de eventos para el botón "Siguiente"
         nextButton.addEventListener('click', () => {
             if (currentStepIndex < steps.length - 1) {
                 currentStepIndex++;
@@ -360,7 +421,6 @@
             }
         });
 
-        // Manejador de eventos para el botón "Anterior"
         prevButton.addEventListener('click', () => {
             if (currentStepIndex > 0) {
                 currentStepIndex--;
@@ -368,22 +428,17 @@
             }
         });
 
-        // ********************************************************************************
-        // Manejadores de eventos para el modal
+        // Manejadores de eventos para el modal (sin cambios)
         closeModalButton.addEventListener('click', () => {
-            reductionType2Modal.classList.add('hidden'); // Oculta el modal
+            reductionType2Modal.classList.add('hidden');
         });
 
-        // Opcional: Cerrar el modal haciendo clic fuera de él
         reductionType2Modal.addEventListener('click', (event) => {
-            // Solo si se hace clic directamente en el overlay (el fondo oscuro), no en el contenido del modal
             if (event.target === reductionType2Modal) { 
                 reductionType2Modal.classList.add('hidden');
             }
         });
-        // ********************************************************************************
 
-        // Inicializar la UI al cargar la página
         window.onload = updateUI;
     </script>
 </body>
