@@ -4,12 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guía de Pasos Miyuki</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Fondo gris claro */
+        }
+        /* Estilos adicionales para el modal/popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente oscuro */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999; /* Asegura que esté por encima de todo */
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 1000;
+            max-height: 80vh; /* Altura máxima del modal */
+            overflow-y: auto; /* Permite scroll si el contenido es largo */
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4a5568; /* gray-700 */
+        }
+        .close-button:hover {
+            color: #2d3748; /* gray-900 */
         }
     </style>
 </head>
@@ -63,6 +101,15 @@
         </div>
     </div>
 
+    <div id="reduction-type2-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal-button">&times;</span>
+            <h3 class="text-2xl font-bold text-indigo-800 mb-4">Explicación de Reducción Tipo 2</h3>
+            <p class="text-gray-800 text-lg">
+                Después de poner la última pepa antes de una reducción, formas una especie de escalón y el hilo queda en la última pepa de la fila anterior. Meterás el hilo justo en la pepa anterior por la que salió el hilo. Ahora verás la penúltima columna. Desde la pepa que metiste hacia lo que ya está terminado habrán 3 pepas contando la que pusiste. Meterás la aguja en dirección a donde sale el hilo en la tercera, devolverás por la segunda en dirección contraria y por último metes la aguja en la que pusiste.
+            </p>
+        </div>
+    </div>
     <script>
         // Array de pasos con sus patrones e imágenes
         const steps = [
@@ -119,29 +166,28 @@
                 imageUrl: "images/12.jpg"
             },
             {
-                pattern: "D C P C 3P N V", // Paso 14 (índice 13) - He revertido este patrón a lo que teníamos antes
-                imageUrl: "images/13.jpg" // He revertido esta imagen a lo que teníamos antes
+                pattern: "D C P C 3P N V", // Paso 14 (índice 13)
+                imageUrl: "images/13.jpg"
             },
             {
-                pattern: "V D 5P C N", // Paso 15 (índice 14) - Este es el patrón que pusiste para 14
-                imageUrl: "images/14.jpg" // Este es el imageUrl que pusiste para 14
+                pattern: "V D 5P C N", // Paso 15 (índice 14)
+                imageUrl: "images/14.jpg"
             },
             {
-                pattern: "D N 5P N V", // Paso 16 (índice 15) - Este es el patrón que pusiste para 15
-                imageUrl: "images/15.jpg" // Este es el imageUrl que pusiste para 15
+                pattern: "D N 5P N V", // Paso 16 (índice 15)
+                imageUrl: "images/15.jpg"
             },
-            // --- AÑADE TUS NUEVOS 24 PASOS AQUÍ ABAJO (del 17 al 39 si el anterior es 16) ---
-            // ¡Recuerda que el índice del array es 'número de paso - 1'!
-            // Entonces el Paso 17 es el índice 16.
-
             {
-                pattern: "V D 2P 2C P C D",
+                pattern: "V D 2P 2C P C D", // Paso 17 (índice 16) - Tu código original lo tenía como Paso 16
                 imageUrl: "images/16.jpg"
             },
+            // ********************************************************************************
+            // Este es el paso 18 (índice 17) donde quieres el pop-up
             {
-                pattern: "Paso 18: Reduccion Tipo 2",
-                imageUrl: "images/18.jpg"
+                pattern: "REDUCCION (Reducción Tipo 2)", // **ESTE ES EL TEXTO CLAVE QUE ACTIVARÁ EL POP-UP**
+                imageUrl: "images/18.jpg" // Asegúrate de tener esta imagen
             },
+            // ********************************************************************************
             {
                 pattern: "Paso 19: Patrón de ejemplo para el paso 19",
                 imageUrl: "images/19.jpg"
@@ -227,47 +273,86 @@
                 imageUrl: "images/39.jpg"
             },
             {
-                pattern: "Paso 40: Este sería el Paso 40 si necesitas añadir más.", // Ejemplo de cómo sería el siguiente paso
+                pattern: "Paso 40: Este sería el Paso 40 si necesitas añadir más.",
                 imageUrl: "images/40.jpg"
             }
             // --- ¡IMPORTANTE! El ÚLTIMO paso en el array NO debe llevar coma al final ---
         ];
 
-        let currentStepIndex = 0;
+        let currentStepIndex = 0; // El índice actual del paso (empezando desde 0)
 
-        const initialInstructions = document.getElementById('initial-instructions');
+        // Obtener referencias a los elementos del DOM
+        const initialInstructions = document.getElementById('initial-instructions'); // Nueva referencia
         const stepDisplay = document.getElementById('step-display');
         const stepImage = document.getElementById('step-image');
         const patternDisplay = document.getElementById('pattern-display');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
 
+        // Nuevas referencias para el modal
+        const reductionType2Modal = document.getElementById('reduction-type2-modal');
+        const closeModalButton = document.getElementById('close-modal-button');
+
+        /**
+         * Actualiza el contenido de la interfaz de usuario con el paso actual.
+         */
         function updateUI() {
+            // Lógica para mostrar/ocultar las instrucciones iniciales
             if (currentStepIndex === 0) {
-                initialInstructions.classList.remove('hidden');
+                initialInstructions.classList.remove('hidden'); // Muestra las instrucciones
             } else {
-                initialInstructions.classList.add('hidden');
+                initialInstructions.classList.add('hidden'); // Oculta las instrucciones
             }
 
+            // Actualiza el número de paso
             stepDisplay.textContent = `Paso ${currentStepIndex + 1}`;
+
+            // Actualiza la imagen
             stepImage.src = steps[currentStepIndex].imageUrl;
             stepImage.alt = `Imagen del Paso ${currentStepIndex + 1}`;
-            patternDisplay.textContent = steps[currentStepIndex].pattern;
 
-            prevButton.disabled = currentStepIndex === 0;
+            // Obtiene el patrón del paso actual
+            const currentPatternText = steps[currentStepIndex].pattern;
+            
+            // ********************************************************************************
+            // Lógica para hacer el texto de "Reducción Tipo 2" clickeable y mostrar el modal
+            if (currentPatternText.includes("Reducción Tipo 2")) {
+                // Reemplaza el texto con un span clickeable
+                patternDisplay.innerHTML = currentPatternText.replace(
+                    "Reducción Tipo 2",
+                    "<span id='reduction-type2-link' class='text-indigo-600 font-bold cursor-pointer hover:underline'>Reducción Tipo 2</span>"
+                );
+                
+                // Agrega el evento de clic al span recién creado
+                // Es importante hacer esto DESPUÉS de haber insertado el HTML en el DOM
+                const reductionLink = document.getElementById('reduction-type2-link');
+                if (reductionLink) {
+                    reductionLink.onclick = () => {
+                        reductionType2Modal.classList.remove('hidden'); // Muestra el modal
+                    };
+                }
+            } else {
+                // Si no es un patrón de reducción, asegura que solo sea texto plano
+                patternDisplay.textContent = currentPatternText;
+            }
+            // ********************************************************************************
+
+            // Habilita o deshabilita los botones según el paso actual
+            prevButton.disabled = currentStepIndex === 0; // Deshabilita "Anterior" en el primer paso
             prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
             prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
             prevButton.classList.toggle('hover:bg-gray-400', currentStepIndex !== 0);
             prevButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
 
 
-            nextButton.disabled = currentStepIndex === steps.length - 1;
+            nextButton.disabled = currentStepIndex === steps.length - 1; // Deshabilita "Siguiente" en el último paso
             nextButton.classList.toggle('opacity-50', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('cursor-not-allowed', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('hover:bg-indigo-700', currentStepIndex !== steps.length - 1);
             nextButton.classList.toggle('hover:scale-105', currentStepIndex !== steps.length - 1);
         }
 
+        // Manejador de eventos para el botón "Siguiente"
         nextButton.addEventListener('click', () => {
             if (currentStepIndex < steps.length - 1) {
                 currentStepIndex++;
@@ -275,6 +360,7 @@
             }
         });
 
+        // Manejador de eventos para el botón "Anterior"
         prevButton.addEventListener('click', () => {
             if (currentStepIndex > 0) {
                 currentStepIndex--;
@@ -282,6 +368,22 @@
             }
         });
 
+        // ********************************************************************************
+        // Manejadores de eventos para el modal
+        closeModalButton.addEventListener('click', () => {
+            reductionType2Modal.classList.add('hidden'); // Oculta el modal
+        });
+
+        // Opcional: Cerrar el modal haciendo clic fuera de él
+        reductionType2Modal.addEventListener('click', (event) => {
+            // Solo si se hace clic directamente en el overlay (el fondo oscuro), no en el contenido del modal
+            if (event.target === reductionType2Modal) { 
+                reductionType2Modal.classList.add('hidden');
+            }
+        });
+        // ********************************************************************************
+
+        // Inicializar la UI al cargar la página
         window.onload = updateUI;
     </script>
 </body>
