@@ -11,13 +11,12 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Fondo gris claro */
         }
-        /* No hay estilos de .scrollable-content aquí */
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
     <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full text-center flex flex-col items-center">
         
-        <div class="mb-8 text-left text-gray-700 w-full">
+        <div id="initial-instructions" class="mb-8 text-left text-gray-700 w-full">
             <h2 class="text-2xl font-bold text-indigo-800 mb-4">Paso a paso para tejer VIRGEN en Pepa Miyuki</h2>
             
             <p class="mb-4">
@@ -46,10 +45,10 @@
             </p>
             <hr class="my-6 border-t-2 border-gray-300">
         </div>
-
         <div id="step-display" class="text-3xl font-bold text-indigo-700 mb-6">Paso 1</div>
 
         <img id="step-image" src="images/1.jpg" alt="Imagen del paso actual" class="w-[245px] h-auto rounded-lg shadow-md mb-8 mx-auto">
+
         <div id="pattern-display" class="text-xl text-gray-800 mb-8 px-4 leading-relaxed">
             Prepara tu espacio de trabajo.
         </div>
@@ -67,6 +66,10 @@
     <script>
         // Array de pasos con sus patrones e imágenes
         const steps = [
+            {
+                pattern: "Prepara tu espacio de trabajo.", // Este será el contenido del Paso 1
+                imageUrl: "images/1.jpg"
+            },
             {
                 pattern: "D 2N 10P 1N 1D 4V",
                 imageUrl: "images/1.jpg" // Cambia la extensión si es .png o .jpeg
@@ -132,6 +135,7 @@
         let currentStepIndex = 0; // El índice actual del paso (empezando desde 0)
 
         // Obtener referencias a los elementos del DOM
+        const initialInstructions = document.getElementById('initial-instructions'); // Nueva referencia
         const stepDisplay = document.getElementById('step-display');
         const stepImage = document.getElementById('step-image');
         const patternDisplay = document.getElementById('pattern-display');
@@ -142,6 +146,13 @@
          * Actualiza el contenido de la interfaz de usuario con el paso actual.
          */
         function updateUI() {
+            // Lógica para mostrar/ocultar las instrucciones iniciales
+            if (currentStepIndex === 0) {
+                initialInstructions.classList.remove('hidden'); // Muestra las instrucciones
+            } else {
+                initialInstructions.classList.add('hidden'); // Oculta las instrucciones
+            }
+
             // Actualiza el número de paso
             stepDisplay.textContent = `Paso ${currentStepIndex + 1}`;
 
