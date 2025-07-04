@@ -51,33 +51,34 @@
         }
 
         /* ******************************************************************************** */
-        /* NUEVOS ESTILOS PARA EL TOOLTIP */
+        /* ESTILOS MODIFICADOS PARA EL TOOLTIP */
         .tooltip-box {
             position: absolute;
-            background-color: #333; /* Fondo oscuro */
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            max-width: 250px; /* Ancho máximo para el tooltip */
+            background-color: #ffffff; /* Fondo blanco, como el contenedor principal */
+            color: #4a5568; /* Un gris oscuro para el texto, similar al de la página */
+            padding: 10px 15px; /* Más padding para que se vea mejor */
+            border-radius: 8px; /* Bordes más redondeados */
+            font-size: 0.95rem; /* Un poco más grande el texto */
+            max-width: 280px; /* Un poco más ancho */
             text-align: left;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            z-index: 99; /* Por debajo del modal, pero por encima del contenido normal */
-            pointer-events: none; /* Permite hacer clic a través del tooltip */
-            opacity: 0; /* Inicialmente oculto */
-            transition: opacity 0.2s ease-in-out; /* Transición suave para aparecer/desaparecer */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra más suave y extendida */
+            z-index: 99; 
+            pointer-events: none; 
+            opacity: 0; 
+            transition: opacity 0.2s ease-in-out; 
+            border: 1px solid #e2e8f0; /* Un borde sutil para que resalte del fondo */
         }
 
-        /* Estilo para la "cola" del tooltip (opcional, para que parezca una burbuja de diálogo) */
+        /* Estilo para la "cola" del tooltip (ajustada al nuevo color de fondo) */
         .tooltip-box::before {
             content: '';
             position: absolute;
-            bottom: 100%; /* Arriba del tooltip */
+            bottom: 100%; 
             left: 50%;
             transform: translateX(-50%);
-            border-width: 6px;
+            border-width: 8px; /* Más grande la cola */
             border-style: solid;
-            border-color: transparent transparent #333 transparent; /* Triángulo apuntando hacia arriba */
+            border-color: transparent transparent #ffffff transparent; /* Coincide con el color de fondo del tooltip */
         }
         /* ******************************************************************************** */
     </style>
@@ -142,12 +143,10 @@
         </div>
     </div>
     <div id="reduction-type2-tooltip" class="tooltip-box hidden">
-        <p>
-            **Reducción Tipo 2 (Resumen):** El hilo queda en la última pepa de la fila anterior. Se mete el hilo por la pepa anterior a la que salió, luego en la tercera desde la pepa puesta, se devuelve por la segunda y se mete por la que pusiste.
-        </p>
+        Después de poner la última pepa antes de una reducción, el hilo queda en la pepa de la fila anterior. Se mete el hilo por la pepa anterior a la que salió, luego por la tercera desde la pepa puesta, se devuelve por la segunda en dirección contraria y se mete por la que pusiste.
     </div>
     <script>
-        // Array de pasos con sus patrones e imágenes
+        // Array de pasos con sus patrones e imágenes (sin cambios)
         const steps = [
             {
                 pattern: "Prepara tu espacio de trabajo.",
@@ -217,13 +216,11 @@
                 pattern: "V D 2P 2C P C D",
                 imageUrl: "images/16.jpg"
             },
-            // ********************************************************************************
             // Este es el paso 18 (índice 17) donde quieres el pop-up y el tooltip
             {
-                pattern: "REDUCCION (Reducción Tipo 2)", // **ESTE ES EL TEXTO CLAVE QUE ACTIVARÁ AMBAS COSAS**
+                pattern: "REDUCCION (Reducción Tipo 2)", 
                 imageUrl: "images/18.jpg"
             },
-            // ********************************************************************************
             {
                 pattern: "Paso 19: Patrón de ejemplo para el paso 19",
                 imageUrl: "images/19.jpg"
@@ -323,18 +320,12 @@
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
 
-        // Referencias para el modal (las mismas que antes)
         const reductionType2Modal = document.getElementById('reduction-type2-modal');
         const closeModalButton = document.getElementById('close-modal-button');
 
-        // ********************************************************************************
-        // NUEVAS REFERENCIAS PARA EL TOOLTIP
+        // Referencia para el tooltip
         const reductionType2Tooltip = document.getElementById('reduction-type2-tooltip');
-        // ********************************************************************************
 
-        /**
-         * Actualiza el contenido de la interfaz de usuario con el paso actual.
-         */
         function updateUI() {
             if (currentStepIndex === 0) {
                 initialInstructions.classList.remove('hidden');
@@ -348,8 +339,6 @@
 
             const currentPatternText = steps[currentStepIndex].pattern;
             
-            // ********************************************************************************
-            // Lógica para hacer el texto clickeable (para el modal) y añadir eventos de mouse (para el tooltip)
             if (currentPatternText.includes("Reducción Tipo 2")) {
                 patternDisplay.innerHTML = currentPatternText.replace(
                     "Reducción Tipo 2",
@@ -358,54 +347,53 @@
                 
                 const reductionLink = document.getElementById('reduction-type2-link');
                 if (reductionLink) {
-                    // Evento de click para el modal (funcionalidad existente)
+                    // Evento de click para el modal
                     reductionLink.onclick = () => {
                         reductionType2Modal.classList.remove('hidden');
                         reductionType2Tooltip.classList.add('hidden'); // Oculta el tooltip si está visible al hacer clic
                     };
 
-                    // ********************************************************************************
                     // Eventos para el Tooltip (mouseover y mouseout)
                     reductionLink.onmouseover = (event) => {
                         reductionType2Tooltip.classList.remove('hidden');
-                        reductionType2Tooltip.style.opacity = '1'; // Mostrar con fade-in
+                        reductionType2Tooltip.style.opacity = '1';
 
                         // Posicionar el tooltip
                         const linkRect = reductionLink.getBoundingClientRect();
-                        const bodyRect = document.body.getBoundingClientRect();
+                        
+                        // Centrar el tooltip con respecto al enlace
+                        let tooltipLeft = linkRect.left + (linkRect.width / 2) - (reductionType2Tooltip.offsetWidth / 2);
+                        // Asegurarse de que el tooltip no se salga de los bordes de la ventana
+                        if (tooltipLeft < 0) tooltipLeft = 0;
+                        if (tooltipLeft + reductionType2Tooltip.offsetWidth > window.innerWidth) {
+                            tooltipLeft = window.innerWidth - reductionType2Tooltip.offsetWidth;
+                        }
 
-                        // Posicionar debajo y centrado horizontalmente con el enlace
-                        reductionType2Tooltip.style.left = `${linkRect.left + linkRect.width / 2 - reductionType2Tooltip.offsetWidth / 2}px`;
-                        reductionType2Tooltip.style.top = `${linkRect.bottom + window.scrollY + 10}px`; // 10px de margen debajo
+                        reductionType2Tooltip.style.left = `${tooltipLeft}px`;
+                        // Posicionar debajo del enlace con un pequeño margen
+                        reductionType2Tooltip.style.top = `${linkRect.bottom + window.scrollY + 10}px`; 
                     };
 
                     reductionLink.onmouseout = () => {
-                        reductionType2Tooltip.style.opacity = '0'; // Ocultar con fade-out
-                        // Damos un pequeño retraso para que la transición de opacidad se complete antes de ocultar del todo
+                        reductionType2Tooltip.style.opacity = '0';
                         setTimeout(() => {
-                            if (reductionType2Tooltip.style.opacity === '0') { // Solo ocultar si no se volvió a activar
+                            if (reductionType2Tooltip.style.opacity === '0') { 
                                 reductionType2Tooltip.classList.add('hidden');
                             }
                         }, 200); 
                     };
-                    // ********************************************************************************
-
                 }
             } else {
                 patternDisplay.textContent = currentPatternText;
-                // Asegurarse de que el tooltip esté oculto si cambiamos de paso y no es el de reducción
                 reductionType2Tooltip.classList.add('hidden');
                 reductionType2Tooltip.style.opacity = '0';
             }
-            // ********************************************************************************
 
-            // ... (resto de la lógica de botones, sin cambios)
             prevButton.disabled = currentStepIndex === 0;
             prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
             prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
             prevButton.classList.toggle('hover:bg-gray-400', currentStepIndex !== 0);
             prevButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
-
 
             nextButton.disabled = currentStepIndex === steps.length - 1;
             nextButton.classList.toggle('opacity-50', currentStepIndex === steps.length - 1);
@@ -428,7 +416,6 @@
             }
         });
 
-        // Manejadores de eventos para el modal (sin cambios)
         closeModalButton.addEventListener('click', () => {
             reductionType2Modal.classList.add('hidden');
         });
