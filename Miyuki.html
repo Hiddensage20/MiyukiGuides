@@ -51,7 +51,7 @@
         }
 
         /* ******************************************************************************** */
-        /* ESTILOS MODIFICADOS PARA EL TOOLTIP (sin cambios en esta iteración) */
+        /* ESTILOS MODIFICADOS PARA EL TOOLTIP */
         .tooltip-box {
             position: absolute;
             background-color: #ffffff; /* Fondo blanco, como el contenedor principal */
@@ -113,6 +113,7 @@
                 <li><span class="font-bold">V</span> = Verde</li>
                 <li><span class="font-bold">C</span> = Café</li>
                 <li><span class="font-bold">R</span> = Rojo</li>
+                <li><span class="font-bold">M</span> = ¿Marrón? / Otro color? (Si "M" es un color, por favor, defínelo)</li> 
             </ul>
 
             <h3 class="text-xl font-semibold text-indigo-700 mb-2">Explicación de Reducción</h3>
@@ -135,11 +136,14 @@
             Prepara tu espacio de trabajo.
         </div>
 
-        <div class="flex justify-center space-x-4 w-full mt-auto py-4">
-            <button id="prev-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+        <div class="flex justify-center space-x-2 w-full mt-auto py-4">
+            <button id="left-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                Inicio / Izq.
+            </button>
+            <button id="prev-button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
                 Anterior
             </button>
-            <button id="next-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+            <button id="next-button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                 Siguiente
             </button>
         </div>
@@ -158,7 +162,7 @@
         Después de poner la última pepa antes de una reducción, el hilo queda en la pepa de la fila anterior. Se mete el hilo por la pepa anterior a la que salió, luego por la tercera desde la pepa puesta, se devuelve por la segunda en dirección contraria y se mete por la que pusiste.
     </div>
     <script>
-        // Array de pasos con sus patrones e imágenes (sin cambios)
+        // Array de pasos con sus patrones e imágenes
         const steps = [
             {
                 pattern: "Prepara tu espacio de trabajo.",
@@ -228,10 +232,10 @@
                 pattern: "V D 2P 2C P C D",
                 imageUrl: "images/16.jpg"
             },
-            // Este es el paso 18 (índice 17) donde quieres el pop-up y el tooltip
+            // Paso 18 (índice 17) - Reducción Tipo 2
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/17.jpg"
+                imageUrl: "images/17.jpg" // Asegúrate de tener esta imagen correcta
             },
             {
                 pattern: "N M P M P M N V",
@@ -318,8 +322,49 @@
                 imageUrl: "images/39.jpg"
             },
             {
-                pattern: "REDUCCION TIPO 2",
+                pattern: "REDUCCION (Reducción Tipo 2)", // Asumo que el paso 40 también es Reducción Tipo 2
                 imageUrl: "images/40.jpg"
+            },
+            // --- NUEVOS PASOS AÑADIDOS DESDE EL ÚLTIMO QUE INDICASTE ---
+            {
+                pattern: "D 2R 2P R D",
+                imageUrl: "images/41.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "V R 3P 2R",
+                imageUrl: "images/42.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/43.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "R 2P C R D",
+                imageUrl: "images/44.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/45.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "R 3P R",
+                imageUrl: "images/46.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/47.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "2P C R",
+                imageUrl: "images/48.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/49.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+            },
+            {
+                pattern: "3P",
+                imageUrl: "images/50.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
             }
         ];
 
@@ -331,6 +376,7 @@
         const patternDisplay = document.getElementById('pattern-display');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
+        const leftButton = document.getElementById('left-button'); // Nuevo botón
 
         const reductionType2Modal = document.getElementById('reduction-type2-modal');
         const closeModalButton = document.getElementById('close-modal-button');
@@ -353,6 +399,7 @@
 
             const currentPatternText = steps[currentStepIndex].pattern;
             
+            // Lógica para Reducción Tipo 2 (Tooltip y Modal)
             if (currentPatternText.includes("Reducción Tipo 2")) {
                 patternDisplay.innerHTML = currentPatternText.replace(
                     "Reducción Tipo 2",
@@ -441,6 +488,7 @@
                 reductionType2Tooltip.classList.remove('bottom');
             }
 
+            // Lógica para deshabilitar y aplicar estilos a los botones
             prevButton.disabled = currentStepIndex === 0;
             prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
             prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
@@ -452,6 +500,13 @@
             nextButton.classList.toggle('cursor-not-allowed', currentStepIndex === steps.length - 1);
             nextButton.classList.toggle('hover:bg-indigo-700', currentStepIndex !== steps.length - 1);
             nextButton.classList.toggle('hover:scale-105', currentStepIndex !== steps.length - 1);
+
+            // Lógica para el nuevo botón "Inicio / Izq."
+            leftButton.disabled = currentStepIndex === 0; // Deshabilita si ya estamos en el paso 1 (índice 0)
+            leftButton.classList.toggle('opacity-50', currentStepIndex === 0);
+            leftButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
+            leftButton.classList.toggle('hover:bg-red-700', currentStepIndex !== 0); 
+            leftButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
         }
 
         nextButton.addEventListener('click', () => {
@@ -465,6 +520,19 @@
             if (currentStepIndex > 0) {
                 currentStepIndex--;
                 updateUI();
+            }
+        });
+
+        leftButton.addEventListener('click', () => {
+            if (currentStepIndex > 0) {
+                // Si estamos más allá del paso 1, volvemos al paso 1 (índice 0)
+                currentStepIndex = 0; 
+                updateUI();
+            } else {
+                // Si ya estamos en el Paso 1 (currentStepIndex === 0),
+                // aquí es donde iría la lógica para navegar a los "pasos de la izquierda"
+                // Por ahora, mostraré una alerta, pero esto lo definiremos cuando tengas esos pasos.
+                alert("¡Estás en el Paso 1! Aquí se navegaría a los pasos de la IZQUIERDA cuando los tengamos definidos.");
             }
         });
 
