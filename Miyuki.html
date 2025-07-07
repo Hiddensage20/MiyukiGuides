@@ -12,7 +12,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6; /* Fondo gris claro */
         }
-        /* Estilos para el modal/popup (los mismos que antes) */
+        /* Estilos para el modal/popup */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -50,30 +50,28 @@
             color: #2d3748; /* gray-900 */
         }
 
-        /* ******************************************************************************** */
-        /* ESTILOS MODIFICADOS PARA EL TOOLTIP */
+        /* Estilos para el tooltip */
         .tooltip-box {
             position: absolute;
-            background-color: #ffffff; /* Fondo blanco, como el contenedor principal */
-            color: #4a5568; /* Un gris oscuro para el texto, similar al de la página */
-            padding: 10px 15px; /* Más padding para que se vea mejor */
-            border-radius: 8px; /* Bordes más redondeados */
-            font-size: 0.95rem; /* Un poco más grande el texto */
-            max-width: 280px; /* Un poco más ancho */
+            background-color: #ffffff;
+            color: #4a5568;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            max-width: 280px;
             text-align: left;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra más suave y extendida */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             z-index: 99; 
             pointer-events: none; 
             opacity: 0; 
             transition: opacity 0.2s ease-in-out; 
-            border: 1px solid #e2e8f0; /* Un borde sutil para que resalte del fondo */
+            border: 1px solid #e2e8f0;
         }
 
-        /* Estilo para la "cola" del tooltip cuando está ABAJO del enlace (apunta hacia ARRIBA) */
         .tooltip-box.bottom::before {
             content: '';
             position: absolute;
-            bottom: 100%; /* Arriba del tooltip */
+            bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
             border-width: 8px;
@@ -81,18 +79,16 @@
             border-color: transparent transparent #ffffff transparent; 
         }
 
-        /* Estilo para la "cola" del tooltip cuando está ARRIBA del enlace (apunta hacia ABAJO) */
         .tooltip-box.top::before {
             content: '';
             position: absolute;
-            top: 100%; /* Abajo del tooltip */
+            top: 100%;
             left: 50%;
             transform: translateX(-50%);
             border-width: 8px;
             border-style: solid;
             border-color: #ffffff transparent transparent transparent; 
         }
-        /* ******************************************************************************** */
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
@@ -113,7 +109,7 @@
                 <li><span class="font-bold">V</span> = Verde</li>
                 <li><span class="font-bold">C</span> = Café</li>
                 <li><span class="font-bold">R</span> = Rojo</li>
-                <li><span class="font-bold">M</span> = ¿Marrón? / Otro color? (Si "M" es un color, por favor, defínelo)</li> 
+                <li><span class="font-bold">M</span> = ¿Marrón? / ¿Mostaza? / Otro? (Por favor, define 'M'!)</li> 
             </ul>
 
             <h3 class="text-xl font-semibold text-indigo-700 mb-2">Explicación de Reducción</h3>
@@ -128,6 +124,15 @@
             </p>
             <hr class="my-6 border-t-2 border-gray-300">
         </div>
+
+        <div id="left-branch-intro" class="hidden mb-8 text-left text-gray-700 w-full">
+            <h2 class="text-2xl font-bold text-red-700 mb-4">¡Estás tejiendo la CABEZA de la VIRGEN!</h2>
+            <p class="mb-4">
+                Sigue estos pasos con atención para completar la sección de la cabeza. Cuando termines, usa el botón "Inicio / Derecha" para volver al Paso 1 principal.
+            </p>
+            <hr class="my-6 border-t-2 border-gray-300">
+        </div>
+
         <div id="step-display" class="text-3xl font-bold text-indigo-700 mb-6">Paso 1</div>
 
         <img id="step-image" src="images/1.jpg" alt="Imagen del paso actual" class="w-[245px] h-auto rounded-lg shadow-md mb-8 mx-auto">
@@ -162,7 +167,7 @@
         Después de poner la última pepa antes de una reducción, el hilo queda en la pepa de la fila anterior. Se mete el hilo por la pepa anterior a la que salió, luego por la tercera desde la pepa puesta, se devuelve por la segunda en dirección contraria y se mete por la que pusiste.
     </div>
     <script>
-        // Array de pasos con sus patrones e imágenes
+        // Array de pasos para la "rama derecha" (la principal)
         const steps = [
             {
                 pattern: "Prepara tu espacio de trabajo.",
@@ -232,10 +237,9 @@
                 pattern: "V D 2P 2C P C D",
                 imageUrl: "images/16.jpg"
             },
-            // Paso 18 (índice 17) - Reducción Tipo 2
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/17.jpg" // Asegúrate de tener esta imagen correcta
+                imageUrl: "images/17.jpg" 
             },
             {
                 pattern: "N M P M P M N V",
@@ -322,82 +326,172 @@
                 imageUrl: "images/39.jpg"
             },
             {
-                pattern: "REDUCCION (Reducción Tipo 2)", // Asumo que el paso 40 también es Reducción Tipo 2
+                pattern: "REDUCCION (Reducción Tipo 2)", 
                 imageUrl: "images/40.jpg"
             },
-            // --- NUEVOS PASOS AÑADIDOS DESDE EL ÚLTIMO QUE INDICASTE ---
             {
                 pattern: "D 2R 2P R D",
-                imageUrl: "images/41.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/41.jpg" 
             },
             {
                 pattern: "V R 3P 2R",
-                imageUrl: "images/42.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/42.jpg" 
             },
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/43.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/43.jpg" 
             },
             {
                 pattern: "R 2P C R D",
-                imageUrl: "images/44.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/44.jpg" 
             },
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/45.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/45.jpg" 
             },
             {
                 pattern: "R 3P R",
-                imageUrl: "images/46.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/46.jpg" 
             },
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/47.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/47.jpg" 
             },
             {
                 pattern: "2P C R",
-                imageUrl: "images/48.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/48.jpg" 
             },
             {
                 pattern: "REDUCCION (Reducción Tipo 2)", 
-                imageUrl: "images/49.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/49.jpg" 
             },
             {
                 pattern: "3P",
-                imageUrl: "images/50.jpg" // ¡¡IMPORTANTE: Reemplaza por el nombre real de tu imagen!!
+                imageUrl: "images/50.jpg" 
             }
         ];
 
-        let currentStepIndex = 0;
+        // --- NUEVOS PASOS PARA LA RAMA IZQUIERDA (CABEZA) ---
+        const leftSteps = [
+            {
+                pattern: "D N 4P N D V",
+                imageUrl: "images/L1.jpg" // Imagen para el primer paso de la cabeza
+            },
+            {
+                pattern: "2V D N 3P N D",
+                imageUrl: "images/L2.jpg"
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)",
+                imageUrl: "images/L3.jpg"
+            },
+            {
+                pattern: "2N 2P N D V D",
+                imageUrl: "images/L4.jpg"
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)",
+                imageUrl: "images/L5.jpg"
+            },
+            {
+                pattern: "2V D 4N",
+                imageUrl: "images/L6.jpg"
+            },
+            {
+                pattern: "Aqui haremos lo explicado en el paso anterior, son los mismos pasos, debes agregar una pepa D",
+                imageUrl: "images/L7.jpg"
+            },
+            {
+                pattern: "D 3N D 2V",
+                imageUrl: "images/L8.jpg"
+            },
+            {
+                pattern: "PONER UNA V Y PONER EL HILO EN ESA",
+                imageUrl: "images/L9.jpg"
+            },
+            {
+                pattern: "V D V D 2N D",
+                imageUrl: "images/L10.jpg"
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/L11.jpg"
+            },
+            {
+                pattern: "D N D 3 V",
+                imageUrl: "images/L12.jpg"
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/L13.jpg"
+            },
+            {
+                pattern: "3V 2D",
+                imageUrl: "images/L14.jpg"
+            },
+            {
+                pattern: "REDUCCION (Reducción Tipo 2)", 
+                imageUrl: "images/L15.jpg"
+            },
+            {
+                pattern: "D 3V",
+                imageUrl: "images/L16.jpg"
+            }
+        ];
+
+        let currentStepIndex = 0; // Para los pasos principales (rama derecha)
+        let currentLeftStepIndex = 0; // Para los pasos de la cabeza (rama izquierda)
+        let isNavigatingLeft = false; // Bandera para saber en qué rama estamos
 
         const initialInstructions = document.getElementById('initial-instructions');
+        const leftBranchIntro = document.getElementById('left-branch-intro'); // Referencia al nuevo div
         const stepDisplay = document.getElementById('step-display');
         const stepImage = document.getElementById('step-image');
         const patternDisplay = document.getElementById('pattern-display');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
-        const leftButton = document.getElementById('left-button'); // Nuevo botón
+        const leftButton = document.getElementById('left-button'); 
 
         const reductionType2Modal = document.getElementById('reduction-type2-modal');
         const closeModalButton = document.getElementById('close-modal-button');
-
         const reductionType2Tooltip = document.getElementById('reduction-type2-tooltip');
 
         /**
-         * Actualiza el contenido de la interfaz de usuario con el paso actual.
+         * Actualiza el contenido de la interfaz de usuario con el paso actual,
+         * dependiendo de la rama de navegación.
          */
         function updateUI() {
-            if (currentStepIndex === 0) {
-                initialInstructions.classList.remove('hidden');
+            let currentSetOfSteps;
+            let currentIndex;
+            let displayStepNumber; // Para mostrar el número de paso correcto al usuario
+
+            // Controla la visibilidad de las instrucciones iniciales y la intro de la cabeza
+            initialInstructions.classList.add('hidden');
+            leftBranchIntro.classList.add('hidden');
+
+            if (isNavigatingLeft) {
+                currentSetOfSteps = leftSteps;
+                currentIndex = currentLeftStepIndex;
+                displayStepNumber = `Cabeza - Paso ${currentLeftStepIndex + 1}`;
+                // Mostrar la intro de la cabeza solo si estamos en el primer paso de la izquierda
+                if (currentLeftStepIndex === 0) {
+                    leftBranchIntro.classList.remove('hidden');
+                }
             } else {
-                initialInstructions.classList.add('hidden');
+                currentSetOfSteps = steps;
+                currentIndex = currentStepIndex;
+                displayStepNumber = `Paso ${currentStepIndex + 1}`;
+                // Mostrar las instrucciones iniciales solo si estamos en el primer paso principal
+                if (currentStepIndex === 0) {
+                    initialInstructions.classList.remove('hidden');
+                }
             }
 
-            stepDisplay.textContent = `Paso ${currentStepIndex + 1}`;
-            stepImage.src = steps[currentStepIndex].imageUrl;
-            stepImage.alt = `Imagen del Paso ${currentStepIndex + 1}`;
+            stepDisplay.textContent = displayStepNumber;
+            stepImage.src = currentSetOfSteps[currentIndex].imageUrl;
+            stepImage.alt = `Imagen del ${displayStepNumber}`;
 
-            const currentPatternText = steps[currentStepIndex].pattern;
+            const currentPatternText = currentSetOfSteps[currentIndex].pattern;
             
             // Lógica para Reducción Tipo 2 (Tooltip y Modal)
             if (currentPatternText.includes("Reducción Tipo 2")) {
@@ -415,43 +509,34 @@
 
                     reductionLink.onmouseover = () => {
                         reductionType2Tooltip.classList.remove('hidden');
-                        // Para asegurar que el tooltip tiene dimensiones antes de calcular
-                        reductionType2Tooltip.style.opacity = '0'; // Mantener oculto inicialmente
-                        reductionType2Tooltip.style.visibility = 'hidden'; // Asegurar que no ocupe espacio
+                        reductionType2Tooltip.style.opacity = '0'; 
+                        reductionType2Tooltip.style.visibility = 'hidden'; 
                         
-                        // Necesitamos forzar un reflow para que el navegador calcule el offsetHeight
-                        reductionType2Tooltip.offsetWidth; // Truco para forzar reflow
+                        reductionType2Tooltip.offsetWidth; 
 
                         const linkRect = reductionLink.getBoundingClientRect();
                         const tooltipHeight = reductionType2Tooltip.offsetHeight;
-                        const tooltipWidth = reductionType2Tooltip.offsetWidth; // También obtenemos el ancho
+                        const tooltipWidth = reductionType2Tooltip.offsetWidth; 
 
-                        // Calcular el espacio disponible arriba y abajo del enlace
-                        const spaceBelow = window.innerHeight - (linkRect.bottom + 10); // 10px de margen
-                        const spaceAbove = linkRect.top - 10; // 10px de margen
+                        const spaceBelow = window.innerHeight - (linkRect.bottom + 10); 
+                        const spaceAbove = linkRect.top - 10; 
 
                         let tooltipTop;
                         let tooltipLeft;
 
-                        // Determinar si hay más espacio abajo o arriba para posicionar
-                        // Priorizar arriba si el elemento está en la mitad inferior de la pantalla y hay espacio
                         if (linkRect.top > window.innerHeight / 2 && spaceAbove >= tooltipHeight) {
-                            // Elemento en la mitad inferior Y suficiente espacio arriba
-                            tooltipTop = linkRect.top + window.scrollY - tooltipHeight - 10; // Posicionar arriba
+                            tooltipTop = linkRect.top + window.scrollY - tooltipHeight - 10; 
                             reductionType2Tooltip.classList.remove('bottom');
                             reductionType2Tooltip.classList.add('top');
                         } else {
-                            // Elemento en la mitad superior O no hay espacio suficiente arriba, intentar abajo
-                            tooltipTop = linkRect.bottom + window.scrollY + 10; // Posicionar abajo
+                            tooltipTop = linkRect.bottom + window.scrollY + 10; 
                             reductionType2Tooltip.classList.remove('top');
                             reductionType2Tooltip.classList.add('bottom');
                         }
 
-                        // Centrar el tooltip horizontalmente con el enlace
                         tooltipLeft = linkRect.left + (linkRect.width / 2) - (tooltipWidth / 2);
                         
-                        // Ajustar para que no se salga de los bordes laterales de la ventana
-                        const margin = 5; // Margen de los bordes
+                        const margin = 5; 
                         if (tooltipLeft < margin) {
                             tooltipLeft = margin;
                         } else if (tooltipLeft + tooltipWidth > window.innerWidth - margin) {
@@ -461,7 +546,6 @@
                         reductionType2Tooltip.style.left = `${tooltipLeft}px`;
                         reductionType2Tooltip.style.top = `${tooltipTop}px`;
 
-                        // Finalmente, mostrar el tooltip con la transición
                         reductionType2Tooltip.style.visibility = 'visible';
                         reductionType2Tooltip.style.opacity = '1';
                     };
@@ -471,8 +555,7 @@
                         setTimeout(() => {
                             if (reductionType2Tooltip.style.opacity === '0') { 
                                 reductionType2Tooltip.classList.add('hidden');
-                                reductionType2Tooltip.style.visibility = 'hidden'; // Ocultar completamente
-                                // Remover las clases de posición para limpiar y evitar conflictos futuros
+                                reductionType2Tooltip.style.visibility = 'hidden'; 
                                 reductionType2Tooltip.classList.remove('top');
                                 reductionType2Tooltip.classList.remove('bottom');
                             }
@@ -483,57 +566,109 @@
                 patternDisplay.textContent = currentPatternText;
                 reductionType2Tooltip.classList.add('hidden');
                 reductionType2Tooltip.style.opacity = '0';
-                reductionType2Tooltip.style.visibility = 'hidden'; // Ocultar completamente
+                reductionType2Tooltip.style.visibility = 'hidden'; 
                 reductionType2Tooltip.classList.remove('top');
                 reductionType2Tooltip.classList.remove('bottom');
             }
 
             // Lógica para deshabilitar y aplicar estilos a los botones
-            prevButton.disabled = currentStepIndex === 0;
-            prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
-            prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
-            prevButton.classList.toggle('hover:bg-gray-400', currentStepIndex !== 0);
-            prevButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
+            // Botón ANTERIOR
+            if (isNavigatingLeft) {
+                prevButton.disabled = currentLeftStepIndex === 0;
+                prevButton.classList.toggle('opacity-50', currentLeftStepIndex === 0);
+                prevButton.classList.toggle('cursor-not-allowed', currentLeftStepIndex === 0);
+                prevButton.classList.toggle('hover:bg-gray-400', currentLeftStepIndex !== 0);
+                prevButton.classList.toggle('hover:scale-105', currentLeftStepIndex !== 0);
+            } else {
+                prevButton.disabled = currentStepIndex === 0;
+                prevButton.classList.toggle('opacity-50', currentStepIndex === 0);
+                prevButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
+                prevButton.classList.toggle('hover:bg-gray-400', currentStepIndex !== 0);
+                prevButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
+            }
 
-            nextButton.disabled = currentStepIndex === steps.length - 1;
-            nextButton.classList.toggle('opacity-50', currentStepIndex === steps.length - 1);
-            nextButton.classList.toggle('cursor-not-allowed', currentStepIndex === steps.length - 1);
-            nextButton.classList.toggle('hover:bg-indigo-700', currentStepIndex !== steps.length - 1);
-            nextButton.classList.toggle('hover:scale-105', currentStepIndex !== steps.length - 1);
+            // Botón SIGUIENTE
+            if (isNavigatingLeft) {
+                nextButton.disabled = currentLeftStepIndex === leftSteps.length - 1;
+                nextButton.classList.toggle('opacity-50', currentLeftStepIndex === leftSteps.length - 1);
+                nextButton.classList.toggle('cursor-not-allowed', currentLeftStepIndex === leftSteps.length - 1);
+                nextButton.classList.toggle('hover:bg-indigo-700', currentLeftStepIndex !== leftSteps.length - 1);
+                nextButton.classList.toggle('hover:scale-105', currentLeftStepIndex !== leftSteps.length - 1);
+            } else {
+                nextButton.disabled = currentStepIndex === steps.length - 1;
+                nextButton.classList.toggle('opacity-50', currentStepIndex === steps.length - 1);
+                nextButton.classList.toggle('cursor-not-allowed', currentStepIndex === steps.length - 1);
+                nextButton.classList.toggle('hover:bg-indigo-700', currentStepIndex !== steps.length - 1);
+                nextButton.classList.toggle('hover:scale-105', currentStepIndex !== steps.length - 1);
+            }
 
-            // Lógica para el nuevo botón "Inicio / Izq."
-            leftButton.disabled = currentStepIndex === 0; // Deshabilita si ya estamos en el paso 1 (índice 0)
-            leftButton.classList.toggle('opacity-50', currentStepIndex === 0);
-            leftButton.classList.toggle('cursor-not-allowed', currentStepIndex === 0);
-            leftButton.classList.toggle('hover:bg-red-700', currentStepIndex !== 0); 
-            leftButton.classList.toggle('hover:scale-105', currentStepIndex !== 0);
+            // Botón INICIO / IZQ.
+            // Si estamos en la rama izquierda y en el primer paso, no se puede ir más a la izquierda.
+            // Si estamos en la rama derecha y en el paso 1, el botón debe estar activo para ir a la izquierda.
+            // Si estamos en la rama derecha y NO en el paso 1, el botón debe estar activo para ir al paso 1.
+            if (isNavigatingLeft && currentLeftStepIndex === 0) {
+                 leftButton.disabled = true;
+                 leftButton.classList.add('opacity-50', 'cursor-not-allowed');
+                 leftButton.classList.remove('hover:bg-red-700', 'hover:scale-105');
+                 leftButton.textContent = "Inicio / Izq."; // Mantener texto original
+            } else if (!isNavigatingLeft && currentStepIndex === 0) {
+                 leftButton.disabled = false; // Habilitado para ir a la izquierda
+                 leftButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                 leftButton.classList.add('hover:bg-red-700', 'hover:scale-105');
+                 leftButton.textContent = "Ir a Cabeza"; // Cambiar texto para indicar a dónde va
+            } else { // Estamos en la rama derecha, pero no en el paso 1, o estamos en la rama izquierda y no en el primer paso
+                leftButton.disabled = false;
+                leftButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                leftButton.classList.add('hover:bg-red-700', 'hover:scale-105');
+                leftButton.textContent = "Inicio / Derecha"; // Volver al Paso 1 principal
+            }
         }
 
+        // --- LISTENERS DE BOTONES ---
+
         nextButton.addEventListener('click', () => {
-            if (currentStepIndex < steps.length - 1) {
-                currentStepIndex++;
-                updateUI();
+            if (isNavigatingLeft) {
+                if (currentLeftStepIndex < leftSteps.length - 1) {
+                    currentLeftStepIndex++;
+                }
+            } else {
+                if (currentStepIndex < steps.length - 1) {
+                    currentStepIndex++;
+                }
             }
+            updateUI();
         });
 
         prevButton.addEventListener('click', () => {
-            if (currentStepIndex > 0) {
-                currentStepIndex--;
-                updateUI();
+            if (isNavigatingLeft) {
+                if (currentLeftStepIndex > 0) {
+                    currentLeftStepIndex--;
+                }
+            } else {
+                if (currentStepIndex > 0) {
+                    currentStepIndex--;
+                }
             }
+            updateUI();
         });
 
         leftButton.addEventListener('click', () => {
-            if (currentStepIndex > 0) {
-                // Si estamos más allá del paso 1, volvemos al paso 1 (índice 0)
-                currentStepIndex = 0; 
-                updateUI();
+            if (isNavigatingLeft) {
+                // Si estamos navegando a la izquierda y el botón dice "Inicio / Derecha"
+                // significa que queremos volver al Paso 1 principal.
+                isNavigatingLeft = false;
+                currentStepIndex = 0; // Vuelve al Paso 1 principal
+            } else if (currentStepIndex === 0) {
+                // Si estamos en el Paso 1 principal y el botón dice "Ir a Cabeza"
+                // significa que queremos ir a la rama izquierda.
+                isNavigatingLeft = true;
+                currentLeftStepIndex = 0; // Va al primer paso de la rama izquierda
             } else {
-                // Si ya estamos en el Paso 1 (currentStepIndex === 0),
-                // aquí es donde iría la lógica para navegar a los "pasos de la izquierda"
-                // Por ahora, mostraré una alerta, pero esto lo definiremos cuando tengas esos pasos.
-                alert("¡Estás en el Paso 1! Aquí se navegaría a los pasos de la IZQUIERDA cuando los tengamos definidos.");
+                // Si estamos en la rama derecha pero no en el Paso 1, el botón dice "Inicio / Derecha"
+                // y queremos volver al Paso 1 principal.
+                currentStepIndex = 0; 
             }
+            updateUI();
         });
 
         closeModalButton.addEventListener('click', () => {
