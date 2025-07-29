@@ -10,20 +10,19 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Fondo gris claro */
+            background-color: #f3f4f6; 
         }
-        /* Estilos para el modal/popup */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente oscuro */
+            background-color: rgba(0, 0, 0, 0.6); 
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 999; /* Asegura que esté por encima de todo */
+            z-index: 999; 
         }
         .modal-content {
             background-color: white;
@@ -34,8 +33,8 @@
             width: 90%;
             position: relative;
             z-index: 1000;
-            max-height: 80vh; /* Altura máxima del modal */
-            overflow-y: auto; /* Permite scroll si el contenido es largo */
+            max-height: 80vh; 
+            overflow-y: auto; 
         }
         .close-button {
             position: absolute;
@@ -44,13 +43,12 @@
             font-size: 24px;
             font-weight: bold;
             cursor: pointer;
-            color: #4a5568; /* gray-700 */
+            color: #4a5568; 
         }
         .close-button:hover {
-            color: #2d3748; /* gray-900 */
+            color: #2d3748; 
         }
 
-        /* Estilos para el tooltip */
         .tooltip-box {
             position: absolute;
             background-color: #ffffff;
@@ -371,7 +369,6 @@
             }
         ];
 
-        // --- NUEVOS PASOS PARA LA RAMA IZQUIERDA (CABEZA) ---
         const leftSteps = [
             {
                 pattern: "D N 4P N D V",
@@ -571,7 +568,6 @@
                 reductionType2Tooltip.classList.remove('bottom');
             }
 
-            // Lógica para deshabilitar y aplicar estilos a los botones
             // Botón ANTERIOR
             if (isNavigatingLeft) {
                 prevButton.disabled = currentLeftStepIndex === 0;
@@ -603,24 +599,21 @@
             }
 
             // Botón INICIO / IZQ.
-            // Si estamos en la rama izquierda y en el primer paso, no se puede ir más a la izquierda.
-            // Si estamos en la rama derecha y en el paso 1, el botón debe estar activo para ir a la izquierda.
-            // Si estamos en la rama derecha y NO en el paso 1, el botón debe estar activo para ir al paso 1.
             if (isNavigatingLeft && currentLeftStepIndex === 0) {
                  leftButton.disabled = true;
                  leftButton.classList.add('opacity-50', 'cursor-not-allowed');
                  leftButton.classList.remove('hover:bg-red-700', 'hover:scale-105');
-                 leftButton.textContent = "Inicio / Izq."; // Mantener texto original
+                 leftButton.textContent = "Inicio / Izq."; 
             } else if (!isNavigatingLeft && currentStepIndex === 0) {
-                 leftButton.disabled = false; // Habilitado para ir a la izquierda
+                 leftButton.disabled = false; 
                  leftButton.classList.remove('opacity-50', 'cursor-not-allowed');
                  leftButton.classList.add('hover:bg-red-700', 'hover:scale-105');
                  leftButton.textContent = "Ir a Cabeza"; // Cambiar texto para indicar a dónde va
-            } else { // Estamos en la rama derecha, pero no en el paso 1, o estamos en la rama izquierda y no en el primer paso
+            } else { 
                 leftButton.disabled = false;
                 leftButton.classList.remove('opacity-50', 'cursor-not-allowed');
                 leftButton.classList.add('hover:bg-red-700', 'hover:scale-105');
-                leftButton.textContent = "Inicio / Derecha"; // Volver al Paso 1 principal
+                leftButton.textContent = "Inicio / Derecha"; 
             }
         }
 
@@ -654,18 +647,13 @@
 
         leftButton.addEventListener('click', () => {
             if (isNavigatingLeft) {
-                // Si estamos navegando a la izquierda y el botón dice "Inicio / Derecha"
-                // significa que queremos volver al Paso 1 principal.
                 isNavigatingLeft = false;
-                currentStepIndex = 0; // Vuelve al Paso 1 principal
+                currentStepIndex = 0; 
             } else if (currentStepIndex === 0) {
-                // Si estamos en el Paso 1 principal y el botón dice "Ir a Cabeza"
-                // significa que queremos ir a la rama izquierda.
+
                 isNavigatingLeft = true;
-                currentLeftStepIndex = 0; // Va al primer paso de la rama izquierda
+                currentLeftStepIndex = 0; 
             } else {
-                // Si estamos en la rama derecha pero no en el Paso 1, el botón dice "Inicio / Derecha"
-                // y queremos volver al Paso 1 principal.
                 currentStepIndex = 0; 
             }
             updateUI();
